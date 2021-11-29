@@ -1,0 +1,19 @@
+{
+  "name": "dysphoria",
+  "version": "1.0.0",
+  "description": "trabalho de web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipenatanbarbosa/dysphoria.git"
+  },
+  "author": "Felipe Natan Barbosa e Emanuel Leão Sá",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felipenatanbarbosa/dysphoria/issues"
+  },
+  "homepage": "https://github.com/felipenatanbarbosa/dysphoria#readme"
+}
