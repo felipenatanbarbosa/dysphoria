@@ -1,7 +1,7 @@
 # Dysphoria
 
 ## Integrantes
-Felipe Natan Barbosa
+Felipe Natan Barbosa  
 Emanuel Leão Sá
 
 ## Requisitos
