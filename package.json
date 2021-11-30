@@ -4,6 +4,7 @@
   "description": "trabalho de web",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,19 @@
   "bugs": {
     "url": "https://github.com/felipenatanbarbosa/dysphoria/issues"
   },
-  "homepage": "https://github.com/felipenatanbarbosa/dysphoria#readme"
+  "homepage": "https://github.com/felipenatanbarbosa/dysphoria#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.12.0-alpha.1"
+  }
 }
