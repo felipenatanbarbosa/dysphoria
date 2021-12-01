@@ -32,6 +32,14 @@ class UserRepository {
 
     }
 
+    findByUsername(username) {
+
+        return User.findAll({
+            where: { username: username }
+        })
+
+    }
+
     findAll() {
         
         return User.findAll()

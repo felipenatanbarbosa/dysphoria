@@ -1,4 +1,7 @@
-#dysphoria
-##autores
-Felipe Natan Barbosa
+# Dysphoria
+
+## Integrantes
+Felipe Natan Barbosa  
 Emanuel Leão Sá
+
+## Requisitos
