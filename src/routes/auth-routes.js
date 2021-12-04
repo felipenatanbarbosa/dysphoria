@@ -10,10 +10,21 @@ const uRepo = new UserRepository()
 
 
 
-router.post('/login', passport.authenticate('local', {
-    successRedirect: "/",
-    failureRedirect: "/login"
-}))
+// router.post('/login', passport.authenticate('local', {
+//     successRedirect: "/",
+//     failureRedirect: "/login"
+// }))
+
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) { return res.redirect('/login') }
+        if (!user) { return res.redirect('/login') }
+        req.logIn(user, (err) => {
+            if (err) { return res.redirect('/login') }
+            return res.cookie('userId', user.id).redirect('/')
+        });
+    })(req, res, next)
+})
 
 router.post('/register', async (req, res) => {
     let username = req.body.username

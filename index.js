@@ -23,9 +23,9 @@ app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')     // Apenas para teste
 app.use(express.static(__dirname + '/public'))
 app.use(session({
-  secret: 's3cr3t',
-  resave: false,
-  saveUninitialized: true
+    secret: 's3cr3t',
+    resave: false,
+    saveUninitialized: true
 }))
 app.use(cookieParser())
 app.use(flash())

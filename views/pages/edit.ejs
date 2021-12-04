@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/item/edit/<%= item[0].id %>" method="post">
+        <input type="text" name="description" placeholder="Description" value="<%= item[0].description %>">
+        <input type="text" name="value" placeholder="Value" value="<%= item[0].value %>">
+        <input type="hidden" name="userId" value="<%= item[0].user_id %>">
+        <button type="submit">Submit</button>
+    </form>
+    <button type="button" onclick="delete(<%= item[0].id %>)">Delete</button>
+</body>
+<script>
+    function delete(id) {
+
+        console.log("Deleting")
+
+        if (confirm("Você realmente deseja remover o item selecionada?")) {
+            fetch(`/item/delete/${id}`, { method: "DELETE" })
+                .then((response) => { 
+                    document.location.reload()
+                    console.log("Item deleted (I guess)")
+                })
+        }
+    }
+</script>
+</html>
