@@ -2,9 +2,9 @@ const Item = require('../../model/item')
 
 class ItemRepository {
 
-    insert(user_id, obj) {
+    insert(obj) {
 
-        return Item.create({ ...obj, user_id })
+        return Item.create({ ...obj })
 
     }
 

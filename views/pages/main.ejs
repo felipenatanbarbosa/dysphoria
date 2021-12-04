@@ -8,5 +8,13 @@
 </head>
 <body>
     <h1>Deu certo</h1>
+    <% if (items) { %>
+        <% for (let i = 0; i < items.length; i++) { %>
+            <ul>
+                <li><a href="/edit/<%= items[i].id %>">{ <%= items[i].description %>: <%= items[i].value %> }</a></li>
+            </ul>
+        <% } %>
+    <% } %>
+    <a href="/add">Add item<br></a>
 </body>
 </html>
