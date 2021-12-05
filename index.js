@@ -72,6 +72,6 @@ passport.deserializeUser(async (obj, done) => {
 app.use('/', routes)
 
 app.listen(port, async () => {
-    await sequelize.sync({ force: true })
+    await sequelize.sync({ force: false })
     console.log(`Servidor está executando na porta ${port}`)
 })

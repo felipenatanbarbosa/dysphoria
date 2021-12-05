@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+        const items = <%- JSON.stringify(items) %>
+        
+        let countTotal = 0
+        let countMonth = 0
+        
+        let receitas = []
+        let despesas = []
+
+        console.log(typeof items[0].createdAt)
+
+        if (items) {
+            items.forEach(item => {
+                countTotal += item.value
+                if (findMonth(item.createdAt) === 12) {
+                    countMonth += item.value
+                    if (item.value > 0) {
+                        receitas.push(item.value)
+                    }
+                    else {
+                        despesas.push(Math.abs(item.value))
+                    }
+                }
+            });
+
+            while (receitas.length < 5) {
+                receitas.push(0)
+            }
+            while (despesas.length < 5) {
+                despesas.push(0)
+            }
+
+            receitas.sort()
+            despesas.sort()
+        }
+
+        console.log("Contagem total: " + countTotal)
+        console.log("Contagem mês: " + countMonth)
+
+        console.log(receitas)
+        console.log(despesas)
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const data = {
+            labels: ["1", "2", "3", "4", "5"],
+            datasets: [{
+                label: 'Receitas',
+                data: receitas,
+                fill: false,
+                borderColor: '#33658A',
+                tension: 0.1
+            }, {
+                label: 'Despesas',
+                data: despesas,
+                fill: false,
+                borderColor: '#758E4F',
+                tension: 0.1
+            }]
+        };
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: data
+        });
+
+        function findMonth(str) {
+            let result = str.slice(0, 10)
+            console.log(result)
+            return parseInt(result.slice(5, 7))
+        }
+    </script>
+</body>
+</html>
