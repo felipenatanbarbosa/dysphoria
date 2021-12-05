@@ -20,7 +20,7 @@ router.post('/add', ensureAuthenticated, async (req, res) => {
         const newItem = {
             description: description,
             value: value,
-            user_id: userId
+            UserId: userId
         }
         await iRepo.insert(newItem)
     
@@ -44,7 +44,7 @@ router.post('/edit/:id', ensureAuthenticated, async (req, res) => {
     const newItem = {
         description: description,
         value: value,
-        user_id: userId
+        UserId: userId
     }
     await iRepo.update(req.params.id, newItem)
 

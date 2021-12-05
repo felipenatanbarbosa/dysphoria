@@ -10,23 +10,19 @@
     <form action="/item/edit/<%= item[0].id %>" method="post">
         <input type="text" name="description" placeholder="Description" value="<%= item[0].description %>">
         <input type="text" name="value" placeholder="Value" value="<%= item[0].value %>">
-        <input type="hidden" name="userId" value="<%= item[0].user_id %>">
+        <input type="hidden" name="userId" value="<%= item[0].UserId %>">
         <button type="submit">Submit</button>
     </form>
-    <button type="button" onclick="delete(<%= item[0].id %>)">Delete</button>
-</body>
-<script>
-    function delete(id) {
-
-        console.log("Deleting")
-
-        if (confirm("Você realmente deseja remover o item selecionada?")) {
-            fetch(`/item/delete/${id}`, { method: "DELETE" })
-                .then((response) => { 
-                    document.location.reload()
-                    console.log("Item deleted (I guess)")
-                })
+    <button type="button" onclick="deleteItem(<%= item[0].id %>)">Delete</button>
+    <script>
+        function deleteItem(id) {    
+            if (confirm("Você realmente deseja remover o item selecionado?")) {
+                fetch(`/item/delete/${id}`, { method: "DELETE" })
+                    .then((response) => { 
+                        location.replace('/')
+                    })
+            }
         }
-    }
-</script>
+    </script>
+</body>
 </html>
