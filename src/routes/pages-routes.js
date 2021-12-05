@@ -49,8 +49,10 @@ router.get('/edit/:id', ensureAuthenticated, async (req, res) => {
     res.render('pages/edit', { item: item })
 })
 
-router.get('/report', ensureAuthenticated, (req, res) => {
+router.get('/report', ensureAuthenticated, async (req, res) => {
     console.log("PAGES GET REPORT")
+    const items = await iRepo.findAll()
+    res.render('pages/chart', { items: items })
 })
 
 
