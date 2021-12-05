@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    <% if (error) { %>
+        <p><%= error %></p>
+    <% } %>
     <form action="/item/add" method="post">
         <input type="text" name="description" placeholder="Description">
         <input type="text" name="value" placeholder="Value">

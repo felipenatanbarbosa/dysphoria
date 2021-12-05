@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    <% if (error) { %>
+        <p><%= error %></p>
+    <% } %>
     <form action="/auth/login" method="post">
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="password" placeholder="Password">
