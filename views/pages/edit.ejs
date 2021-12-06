@@ -16,16 +16,5 @@
         <input type="hidden" name="userId" value="<%= item[0].UserId %>">
         <button type="submit">Submit</button>
     </form>
-    <button type="button" onclick="deleteItem(<%= item[0].id %>)">Delete</button>
-    <script>
-        function deleteItem(id) {    
-            if (confirm("Você realmente deseja remover o item selecionado?")) {
-                fetch(`/item/delete/${id}`, { method: "DELETE" })
-                    .then((response) => { 
-                        location.replace('/')
-                    })
-            }
-        }
-    </script>
 </body>
 </html>

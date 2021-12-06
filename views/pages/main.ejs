@@ -12,10 +12,21 @@
         <% for (let i = 0; i < items.length; i++) { %>
             <ul>
                 <li><a href="/edit/<%= items[i].id %>">{ <%= items[i].description %>: <%= items[i].value %> }</a></li>
+                <button type="button" onclick="deleteItem(<%= items[i].id %>)">Delete</button>
             </ul>
         <% } %>
     <% } %>
     <a href="/add">Add item<br></a>
     <a href="/report">Resports<br></a>
+    <script>
+        function deleteItem(id) {    
+            if (confirm("Você realmente deseja remover o item selecionado?")) {
+                fetch(`/item/delete/${id}`, { method: "DELETE" })
+                    .then((response) => { 
+                        location.replace('/')
+                    })
+            }
+        }
+    </script>
 </body>
 </html>
