@@ -13,7 +13,8 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
 const app = express()
-const port = 3000
+//a gente acabou usando a porta 3001 por questões da porta 3000 já estar em uso, pode trocar a porta.
+const port = 3001
 
 const UserRepository = require('./src/database/repositories/user-repo')
 

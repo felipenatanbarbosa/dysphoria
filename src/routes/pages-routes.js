@@ -28,14 +28,18 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     res.render('pages/main', { items: items })
 })
 
-router.get('/login', (req, res) => {
+router.get('/login', (_, res) => {
     console.log("PAGES GET LOGIN")
     res.render('pages/login', { error: req.query.e })
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', (_, res) => {
     console.log("PAGES GET REGISTER")
     res.render('pages/register', { error: req.query.e })
+})
+
+router.get('/logintest', (_,res) => {
+    res.render('/Users/lipe/Documents/Projetos/dysphoria/views/res/login.html')
 })
 
 router.get('/add', ensureAuthenticated, (req, res) => {
