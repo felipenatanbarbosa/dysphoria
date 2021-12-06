@@ -9,42 +9,54 @@ const iRepo = new ItemRepository()
 
 router.post('/add', ensureAuthenticated, async (req, res) => {
     let description = req.body.description
-    let value = parseInt(req.body.value)
+    let value = req.body.value
     let userId = parseInt(req.body.userId)
 
-    // Verify values
-    if (!(description && value && userId)) {
-        console.error("All fields must be filled")
-    }
-    else {
-        const newItem = {
-            description: description,
-            value: value,
-            user_id: userId
-        }
-        await iRepo.insert(newItem)
-    
-        res.redirect('/')
-    }
-})
 
-router.post('/edit/:id', ensureAuthenticated, async (req, res) => {
-    let description = req.body.description
-    let value = parseInt(req.body.value)
-    let userId = parseInt(req.body.userId)
-
-    // Verify values
-    if (Number.isInteger(value)) {
-        console.error("Value must be a number")
-    }
     if (!(description && value && userId)) {
-        console.error("All fields must be filled")
+        res.redirect('/add?e=' + encodeURIComponent('All fields must be filled'))
+        return
+    }
+
+    value = parseInt(value)
+
+    if (!value) {
+        res.redirect('/add?e=' + encodeURIComponent('Value must be a number'))
+        return
     }
 
     const newItem = {
         description: description,
         value: value,
-        user_id: userId
+        UserId: userId
+    }
+    await iRepo.insert(newItem)
+
+    res.redirect('/')
+})
+
+router.post('/edit/:id', ensureAuthenticated, async (req, res) => {
+    let description = req.body.description
+    let value = req.body.value
+    let userId = parseInt(req.body.userId)
+
+
+    if (!(description && value && userId)) {
+        res.redirect(`/edit/${req.params.id}?e=` + encodeURIComponent('All fields must be filled'))
+        return
+    }
+
+    value = parseInt(req.body.value)
+
+    if (!value) {
+        res.redirect(`/edit/${req.params.id}?e=` + encodeURIComponent('Value must be a number'))
+        return
+    }
+
+    const newItem = {
+        description: description,
+        value: value,
+        UserId: userId
     }
     await iRepo.update(req.params.id, newItem)
 

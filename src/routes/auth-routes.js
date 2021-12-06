@@ -10,15 +10,10 @@ const uRepo = new UserRepository()
 
 
 
-// router.post('/login', passport.authenticate('local', {
-//     successRedirect: "/",
-//     failureRedirect: "/login"
-// }))
-
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) { return res.redirect('/login') }
-        if (!user) { return res.redirect('/login') }
+        if (!user) { return res.redirect('/login?e=' + encodeURIComponent('Incorrect username or password')) }
         req.logIn(user, (err) => {
             if (err) { return res.redirect('/login') }
             return res.cookie('userId', user.id).redirect('/')
@@ -43,10 +38,9 @@ router.post('/register', async (req, res) => {
                     username: username, 
                     password: hash 
                 }
-    
+
                 uRepo.insert(user)
-    
-                // res.render('', { user: req.user })
+
                 res.redirect('/login')
             })
 
@@ -63,7 +57,7 @@ router.post('/register', async (req, res) => {
                 passwordConfirmation: passwordConfirmation
             }
 
-            res.render('pages/register', { user: req.user, error: error, values: values })
+            res.render('pages/register', { error: error, values: values })
 
         }
 
@@ -79,7 +73,7 @@ router.post('/register', async (req, res) => {
             passwordConfirmation: passwordConfirmation
         }
 
-        res.render('pages/register', { user: req.user, error: error, values: values })
+        res.render('pages/register', { error: error, values: values })
     }
 })
 

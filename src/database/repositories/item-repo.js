@@ -35,7 +35,7 @@ class ItemRepository {
     findByUser(user) {
 
         return Item.findAll({
-            where: { user_id: user }
+            where: { UserId: user }
         })
 
     }

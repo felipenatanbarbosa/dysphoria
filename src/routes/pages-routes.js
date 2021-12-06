@@ -15,7 +15,7 @@ const iRepo = new ItemRepository()
 
 router.get('/', ensureAuthenticated, async (req, res) => {
     console.log("PAGES GET HOME")
-    const userItems = await iRepo.findAll(req.cookies.userId)
+    let userItems = await iRepo.findByUser(req.cookies.userId)
     let items = []
     userItems.forEach((item) => {
         items.push({
@@ -30,12 +30,12 @@ router.get('/', ensureAuthenticated, async (req, res) => {
 
 router.get('/login', (_, res) => {
     console.log("PAGES GET LOGIN")
-    res.render('pages/login')
+    res.render('pages/login', { error: req.query.e })
 })
 
 router.get('/register', (_, res) => {
     console.log("PAGES GET REGISTER")
-    res.render('pages/register')
+    res.render('pages/register', { error: req.query.e })
 })
 
 router.get('/logintest', (_,res) => {
@@ -44,17 +44,19 @@ router.get('/logintest', (_,res) => {
 
 router.get('/add', ensureAuthenticated, (req, res) => {
     console.log("PAGES GET ADD")
-    res.render('pages/add', { userId: req.cookies.userId })
+    res.render('pages/add', { userId: req.cookies.userId, error: req.query.e })
 })
 
 router.get('/edit/:id', ensureAuthenticated, async (req, res) => {
     console.log("PAGES GET EDIT")
     const item = await iRepo.findById(req.params.id)
-    res.render('pages/edit', { item: item })
+    res.render('pages/edit', { item: item, error: req.query.e })
 })
 
-router.get('/report', ensureAuthenticated, (req, res) => {
+router.get('/report', ensureAuthenticated, async (req, res) => {
     console.log("PAGES GET REPORT")
+    const items = await iRepo.findByUser(req.cookies.userId)
+    res.render('pages/chart', { items: items })
 })
 
 
