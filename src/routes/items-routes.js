@@ -10,7 +10,10 @@ const iRepo = new ItemRepository()
 router.post('/add', ensureAuthenticated, async (req, res) => {
     let description = req.body.description
     let value = req.body.value
-    let userId = parseInt(req.body.userId)
+    let type = req.body.type == "option2"
+    let userId = parseInt(req.cookies.userId)
+
+    // console.log("Tipo: " + type)
 
 
     if (!(description && value && userId)) {
@@ -20,10 +23,16 @@ router.post('/add', ensureAuthenticated, async (req, res) => {
 
     value = parseInt(value)
 
-    if (!value) {
-        res.redirect('/add?e=' + encodeURIComponent('Value must be a number'))
+    if (!value || value < 0) {
+        res.redirect('/add?e=' + encodeURIComponent('Value must be a positive number'))
         return
     }
+
+    if (type) {
+        value *= -1
+    }
+
+    console.log("Value: " + value)
 
     const newItem = {
         description: description,
@@ -36,21 +45,28 @@ router.post('/add', ensureAuthenticated, async (req, res) => {
 })
 
 router.post('/edit/:id', ensureAuthenticated, async (req, res) => {
+    let id = req.params.id
     let description = req.body.description
     let value = req.body.value
-    let userId = parseInt(req.body.userId)
+    let userId = parseInt(req.cookies.userId)
+
+    let oldItem = await iRepo.findById(id)
 
 
     if (!(description && value && userId)) {
-        res.redirect(`/edit/${req.params.id}?e=` + encodeURIComponent('All fields must be filled'))
+        res.redirect(`/edit/${id}?e=` + encodeURIComponent('All fields must be filled'))
         return
     }
 
-    value = parseInt(req.body.value)
+    value = parseInt(value)
 
-    if (!value) {
-        res.redirect(`/edit/${req.params.id}?e=` + encodeURIComponent('Value must be a number'))
+    if (!value || value < 0) {
+        res.redirect(`/edit/${id}?e=` + encodeURIComponent('Value must be a positive number'))
         return
+    }
+
+    if (oldItem[0].value < 0) {
+        value *= -1
     }
 
     const newItem = {
@@ -58,7 +74,7 @@ router.post('/edit/:id', ensureAuthenticated, async (req, res) => {
         value: value,
         UserId: userId
     }
-    await iRepo.update(req.params.id, newItem)
+    await iRepo.update(id, newItem)
 
     res.redirect('/')
 })

@@ -38,10 +38,6 @@ router.get('/register', (req, res) => {
     res.render('pages/register', { error: req.query.e })
 })
 
-router.get('/logintest', (req,res) => {
-    res.render('/Users/lipe/Documents/Projetos/dysphoria/views/res/login.html')
-})
-
 router.get('/add', ensureAuthenticated, (req, res) => {
     console.log("PAGES GET ADD")
     res.render('pages/add', { userId: req.cookies.userId, error: req.query.e })
