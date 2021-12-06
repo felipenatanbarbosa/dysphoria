@@ -28,17 +28,17 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     res.render('pages/main', { items: items })
 })
 
-router.get('/login', (_, res) => {
+router.get('/login', (req, res) => {
     console.log("PAGES GET LOGIN")
     res.render('pages/login', { error: req.query.e })
 })
 
-router.get('/register', (_, res) => {
+router.get('/register', (req, res) => {
     console.log("PAGES GET REGISTER")
     res.render('pages/register', { error: req.query.e })
 })
 
-router.get('/logintest', (_,res) => {
+router.get('/logintest', (req,res) => {
     res.render('/Users/lipe/Documents/Projetos/dysphoria/views/res/login.html')
 })
 
