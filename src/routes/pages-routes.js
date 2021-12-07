@@ -38,7 +38,7 @@ router.get('/register', (req, res) => {
     res.render('pages/register', { error: req.query.e })
 })
 
-router.get('/logintest', (req,res) => {
+router.get('/logintest', (_,res) => {
     res.render('/Users/lipe/Documents/Projetos/dysphoria/views/res/login.html')
 })
 

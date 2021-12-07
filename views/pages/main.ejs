@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,4 +18,118 @@
     <a href="/add">Add item<br></a>
     <a href="/report">Resports<br></a>
 </body>
-</html>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <title>Dysphoria</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row justify-center">
+      <div class="col-12">
+        <header>
+          <h1>Shopping List</h1>
+
+        </header>
+
+
+      </div>
+      <div class="col-12">
+        <% if (items) { %>
+            <% for (let i = 0; i < items.length; i++) { %>
+                <ul>
+                    <li class="list-group-item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <a>
+                                        { <%= items[i].description %>: <%= items[i].value %> }
+                                    </a>
+                                </div>
+                                <div class="col dropdown show">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Opções
+                                    </a>
+                                
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="/edit/<%= items[i].id %>">Editar</a>
+                                    <a class="dropdown-item" href="javascript:deleteItem(<%= items[i].id %>)">Deletar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            <% } %>
+        <% } else { %>
+            <main class="container">
+                <div class="bg-light p-5 rounded">
+                  <h1>Ainda não possui nenhuma finança.</h1>
+                  <p class="lead"> clique no link para adicionar uma despesa ou uma receita</p>
+                  <a class="btn btn-lg btn-primary" href="/add" role="button">Adicionar &raquo;</a>
+                </div>
+              </main>
+        <% } %>
+      </div>
+    </div>
+</div>
+
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand">Dysphoria</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/add">Adicionar</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/report">Gráfico de Finanças</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <% if(items.length == undefined || items.length == undefined || items.length == 0) { %>
+    <main class="container">
+      <div class="bg-light p-5 rounded">
+        <h1>Você ainda não possui nenhuma finança.</h1>
+        <p class="lead"> clique no link para adicionar uma despesa ou uma receita</p>
+        <a class="btn btn-lg btn-primary" href="/add" role="button">Adicionar &raquo;</a>
+      </div>
+    </main>
+  <% } %>
+
+
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+  <script>
+    function deleteItem(id) {    
+        if (confirm("Você realmente deseja remover o item selecionado?")) {
+            fetch(`/item/delete/${id}`, { method: "DELETE" })
+                .then((response) => { 
+                    location.replace('/')
+                })
+        }
+    }
+</script>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
