@@ -28,6 +28,16 @@
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <title>Dysphoria</title>
+  <style>
+    .indicator {
+      background-color: green;
+      width: 10px;
+    }
+
+    .dropdown {
+      text-align: right;
+    }
+  </style>
 </head>
 
 <body>
@@ -35,40 +45,41 @@
   <div class="container">
     <div class="row justify-center">
       <div class="col-12">
-        <header>
-          <h1>Shopping List</h1>
-
-        </header>
-
-
-      </div>
-      <div class="col-12">
         <% if (items) { %>
+          <ul>
             <% for (let i = 0; i < items.length; i++) { %>
-                <ul>
-                    <li class="list-group-item">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <a>
-                                        { <%= items[i].description %>: <%= items[i].value %> }
-                                    </a>
-                                </div>
-                                <div class="col dropdown show">
-                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Opções
-                                    </a>
-                                
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="/edit/<%= items[i].id %>">Editar</a>
-                                    <a class="dropdown-item" href="javascript:deleteItem(<%= items[i].id %>)">Deletar</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+              <li class="list-group-item">
+                  <div class="container">
+                      <div class="row">
+                          <div id="indicator<%= i %>" class="indicator">
+                          </div>
+                          <div class="col">
+                              <a>
+                                Descrição: <%= items[i].description %> 
+                                <br> 
+                                Valor: <%= items[i].value %> 
+                              </a>
+                          </div>
+                          <div class="col dropdown show">
+                              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Opções
+                              </a>
+                          
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a class="dropdown-item" href="/edit/<%= items[i].id %>">Editar</a>
+                              <a class="dropdown-item" href="javascript:deleteItem(<%= items[i].id %>)">Deletar</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+              <script>
+                if (<%= items[i].value %> < 0) {
+                  document.getElementById('indicator<%= i %>').style.backgroundColor = 'red'
+                }
+              </script>
             <% } %>
+          </ul>
         <% } else { %>
             <main class="container">
                 <div class="bg-light p-5 rounded">

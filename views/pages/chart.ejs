@@ -68,7 +68,10 @@
         };
         const myChart = new Chart(ctx, {
             type: 'line',
-            data: data
+            data: data,
+            options: {
+                responsive: false
+            }
         });
 
         function findMonth(str) {
